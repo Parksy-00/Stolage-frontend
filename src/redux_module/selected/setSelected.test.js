@@ -1,4 +1,4 @@
-import setSelected, {updateSelected} from './selected'
+import setSelected, {updateSelected} from './setSelected'
 
 describe('module: selected', () => {
     it('action : updateSelected', () => {
@@ -22,11 +22,11 @@ describe('module: selected', () => {
             }
         };
 
-        const state = setSelected(initialState, updateSelected(0, ['this', 'that']))
+        const state = setSelected(initialState, updateSelected(0, ['this', 'that']));
         expect(state.selected).toEqual({
             '0': ['this', 'that'],
             '1': ['def']
-        })
+        });
     });
 });
 

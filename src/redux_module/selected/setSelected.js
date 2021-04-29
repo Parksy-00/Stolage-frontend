@@ -10,6 +10,7 @@ export const updateSelected = (id, newSelected) => (
 
 const initialState = {
     selected: {
+        '-1': [],
         '0': []
     }
 };
@@ -23,5 +24,7 @@ export default function setSelected(state=initialState, action) {
                     [action.payload.id]: action.payload.newSelected
                 }
             };
+        default:
+            return {};
     };
 };
