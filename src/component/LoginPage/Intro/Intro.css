@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght@300;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Ranchers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+.title {
+    font-family: Recursive, cursive;
+}
+
+.description {
+    font-family: 'Nanum Gothic', sans-serif;
+}
