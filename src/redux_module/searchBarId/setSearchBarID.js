@@ -29,6 +29,7 @@ const initialState = {
 
 export default function setSearchBarID(state=initialState, action) {
     switch(action.type){
+
         case('addNewId'):
             const newID = state.searchBarID.last + 1;
             return {
@@ -39,6 +40,7 @@ export default function setSearchBarID(state=initialState, action) {
                     all: [...state.searchBarID.all, newID]
                 }
             }
+
         case('deleteID'):
             const newLast = (state.searchBarID.last === action.payload.id)
                                 ? _.nth(state.searchBarID.all, -2)
@@ -48,10 +50,18 @@ export default function setSearchBarID(state=initialState, action) {
                     ...state.searchBarID,
                     current: 0,
                     last: newLast,
-                    all: _.reject(state.searchBarID.all, id => id === action.payload.id)
+                    all: _.without(state.searchBarID.all, action.payload.id)
                 }
             }
 
+        case('changeCurrentId'):
+            return {
+                searchBarID: {
+                    ...state.searchBarID,
+                    current: action.payload.id
+                }
+            };
+        
         default:
             return {};
     };
