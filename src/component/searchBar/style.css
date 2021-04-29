@@ -1,0 +1,4 @@
+.current {
+    box-shadow: 3px 3px 3px #d9d9d9;
+    transition: bax-shadow 0.5s;
+}
