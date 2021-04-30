@@ -1,40 +1,59 @@
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import MatchMediaMock from 'jest-matchmedia-mock';
+import { render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import Login from './Login'
 
+let matchMedia;
 beforeAll(() => {
-    Object.defineProperty(window, "matchMedia", {
-      writable: true,
-      value: jest.fn().mockImplementation(query => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(), // Deprecated
-        removeListener: jest.fn(), // Deprecated
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
-})
+    matchMedia = new MatchMediaMock();
+});
+ 
+afterEach(() => {
+    matchMedia.clear();
+});
 
 const setup = () => {
-    const utils = render(<Login />);
-    const title = utils.getByText('stolage');
-    const email = utils.getByPlaceholderText('이메일');
-    const password = utils.getByPlaceholderText('비밀번호');
-    const remember = utils.getByRole('checkbox');
-    const rememberText = utils.getByText('계정 기억하기');
-    const findPassword = utils.getByText('비밀번호 찾기');
-    const [loginButton, registerButton, loginWithGoogle, loginWithNaver] = utils.getAllByRole('button');
+    const {getByText, getByPlaceholderText, getByRole, getAllByRole, container} = render(<Login />);
+    const title = getByText('stolage');
+    const email = getByPlaceholderText('이메일');
+    const password = getByPlaceholderText('비밀번호');
+    const remember = getByRole('checkbox');
+    const rememberText = getByText('계정 기억하기');
+    const findPassword = getByText('비밀번호 찾기');
+    const [loginButton, registerButton, loginWithGoogle, loginWithNaver] = getAllByRole('button');
 
-    return {title, email, password, remember, rememberText, findPassword, loginButton, registerButton, loginWithGoogle, loginWithNaver, ...utils};
+    return {
+        title, 
+        email, 
+        password, 
+        remember, 
+        rememberText, 
+        findPassword, 
+        loginButton, 
+        registerButton, 
+        loginWithGoogle, 
+        loginWithNaver, 
+        container
+    };
 }
 
 describe('Login', () => {
     it('render LoginForm', () => {
-        const {title, email, password, remember, rememberText, findPassword, loginButton, registerButton, loginWithGoogle, loginWithNaver, container} = setup();
+        const {
+            title,
+            email, 
+            password, 
+            remember, 
+            rememberText, 
+            findPassword, 
+            loginButton, 
+            registerButton, 
+            loginWithGoogle, 
+            loginWithNaver, 
+            container
+        } = setup();
 
         expect(title).toBeInTheDocument();
         expect(email).toBeInTheDocument();
@@ -57,19 +76,24 @@ describe('Login', () => {
     })
 
     it('test events', () => {
-        const { email, password, remember, rememberText, findPassword, loginButton, registerButton, loginWithGoogle, loginWithNaver } = setup();
+        const { 
+            email, 
+            password, 
+            remember, 
+            rememberText 
+        } = setup();
 
-        fireEvent.change(email, {target: {value: 'test@naver.com'}});
+        userEvent.type(email, 'test@naver.com');
         expect(email.value).toBe('test@naver.com');
 
-        fireEvent.change(password, {target: {value: 'abcd1234'}});
+        userEvent.type(password, 'abcd1234');
         expect(password.value).toBe('abcd1234');
 
-        expect(remember.checked).toBeFalsy();
-        fireEvent.click(remember);
-        expect(remember.checked).toBeTruthy();
-        fireEvent.click(rememberText);
-        expect(remember.checked).toBeFalsy();
+        expect(remember).not.toBeChecked();
+        userEvent.click(remember);
+        expect(remember).toBeChecked();
+        userEvent.click(rememberText);
+        expect(remember).not.toBeChecked();
 
         // 이하는 리다이렉트 관련 이벤트이므로 기능 구현 후 테스트할 예정
     })

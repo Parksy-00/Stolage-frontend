@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 import Intro from './Intro'
 import { MemoryRouter } from 'react-router-dom'
@@ -17,10 +17,9 @@ describe('Intro', () => {
     })
 
     it('render Button', () => {
-        const { getByTestId } = render(<Intro />, {wrapper: MemoryRouter})
-        const button = getByTestId('btn');
+        render(<Intro />, {wrapper: MemoryRouter})
+        expect(screen.getByRole('button', {name: '체험하기'})).toBeInTheDocument();
         
-        expect(button).toHaveTextContent('체험하기');
         //나중에 데모페이지 만들어지만 클릭했을 때에 대한 테스트도 작성하면 좋을 듯
     })
 })
