@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import setSelected from './selected/setSelected';
-import setSearchBarID from './searchBarId/setSearchBarID';
+import selectedReducer from './selected/selected';
+import searchBarIDReducer from './searchBarId/searchBarID';
 
 const rootReducer = combineReducers({
-    setSelected,
-    setSearchBarID
+    selected: selectedReducer,
+    searchBarID: searchBarIDReducer
 });
 
 export default rootReducer;

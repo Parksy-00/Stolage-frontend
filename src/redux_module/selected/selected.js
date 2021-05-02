@@ -15,7 +15,7 @@ const initialState = {
     }
 };
 
-export default function setSelected(state=initialState, action) {
+export default function selectedReducer(state=initialState, action) {
     switch(action.type){
         case('updateSelected'):
             return {
