@@ -22,11 +22,12 @@ const allTagsSlice = createSlice({
 });
 
 export const fetchAllTags = () => async (dispatch) => {
-  Axios.get('/tags')
-    .then(
-      (res) => dispatch(fetchAllTagsSuccess(res.data.tags)),
-      (err) => dispatch(fetchAllTagsFail(err.message)),
-    );
+  try {
+    const res = Axios.get('/tags');
+    dispatch(fetchAllTagsSuccess(res.data.tags));
+  } catch (err) {
+    dispatch(fetchAllTagsFail(err.message));
+  }
 };
 
 export const { fetchAllTagsSuccess, fetchAllTagsFail } = allTagsSlice.actions;
