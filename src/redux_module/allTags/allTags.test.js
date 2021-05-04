@@ -9,14 +9,22 @@ describe('Test allTagsReducer', () => {
   const err = new Error('fail to fetch tags');
 
   it('Test actionCreator', () => {
-    const success = fetchAllTagsSuccess([{ id: 1, name: 'file1', tags: ['tag1'] }]);
-    const fail = fetchAllTagsFail(err.message);
+    const data = [
+      { id: 1, name: 'file1', tags: ['tag1'] },
+      { id: 2, name: 'file2', tags: ['tag2'] },
+    ];
+    const onSuccess = fetchAllTagsSuccess(data);
+    const onFail = fetchAllTagsFail(err.message);
 
-    expect(success.type).toBe('allTags/fetchAllTagsSuccess');
-    expect(success.payload).toEqual([{ id: 1, name: 'file1', tags: ['tag1'] }]);
+    expect(onSuccess).toEqual({
+      type: 'allTags/fetchAllTagsSuccess',
+      payload: data,
+    });
 
-    expect(fail.type).toBe('allTags/fetchAllTagsFail');
-    expect(fail.payload).toBe('fail to fetch tags');
+    expect(onFail).toEqual({
+      type: 'allTags/fetchAllTagsFail',
+      payload: err.message,
+    });
   });
 
   it('Test reducer', () => {
