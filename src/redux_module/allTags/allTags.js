@@ -25,7 +25,7 @@ const { fetchAllTagsSuccess, fetchAllTagsFail } = allTagsSlice.actions;
 
 const fetchAllTags = () => async (dispatch) => {
   try {
-    const res = Axios.get('/tags');
+    const res = await Axios.get('/tags');
     dispatch(fetchAllTagsSuccess(res.data.tags));
   } catch (err) {
     dispatch(fetchAllTagsFail(err.message));
