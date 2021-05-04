@@ -10,7 +10,7 @@ describe('Intro', () => {
     'Storage에 label을 입히다',
     'stolage는 파일을 단순한 디렉토리로 저장하지않습니다.',
     '파일을 label로 묘사하세요.',
-  ])('render Description text', (description) => {
+  ])('render "%s"', (description) => {
     const { container } = render(<Intro />, { wrapper: MemoryRouter });
     expect(container).toHaveTextContent(description);
   });
