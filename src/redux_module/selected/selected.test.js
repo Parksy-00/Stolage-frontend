@@ -1,4 +1,4 @@
-import setSelected, {updateSelected} from './setSelected'
+import selectedReducer, {updateSelected} from './selected'
 
 describe('module: selected', () => {
     it('action : updateSelected', () => {
@@ -22,7 +22,7 @@ describe('module: selected', () => {
             }
         };
 
-        const state = setSelected(initialState, updateSelected(0, ['this', 'that']));
+        const state = selectedReducer(initialState, updateSelected(0, ['this', 'that']));
         expect(state.selected).toEqual({
             '0': ['this', 'that'],
             '1': ['def']

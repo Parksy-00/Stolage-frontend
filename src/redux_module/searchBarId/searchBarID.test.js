@@ -1,4 +1,4 @@
-import setSearchBarID, {addNewId, deleteID, changeCurrentId} from './setSearchBarID'
+import searchBarIDReducer, {addNewId, deleteID, changeCurrentId} from './searchBarID'
 
 describe('module: searchBarId', () => {
     describe('reducer: setSearchBarId', () => {
@@ -12,7 +12,7 @@ describe('module: searchBarId', () => {
                 }
             };
 
-            const state = setSearchBarID(initialState, addNewId())
+            const state = searchBarIDReducer(initialState, addNewId())
             expect(state).toEqual({
                 searchBarID: {
                     current: 3,
@@ -32,7 +32,7 @@ describe('module: searchBarId', () => {
             };
 
 
-            const state = setSearchBarID(initialState, deleteID(2));
+            const state = searchBarIDReducer(initialState, deleteID(2));
             expect(state).toEqual({
                 searchBarID: {
                     current: 0,
@@ -52,7 +52,7 @@ describe('module: searchBarId', () => {
             };
 
 
-            const state = setSearchBarID(initialState, changeCurrentId(2));
+            const state = searchBarIDReducer(initialState, changeCurrentId(2));
             expect(state).toEqual({
                 searchBarID: {
                     current: 2,
