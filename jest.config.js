@@ -4,6 +4,6 @@ module.exports = {
     './jest.setup',
   ],
   moduleNameMapper: {
-    "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
   },
 };
