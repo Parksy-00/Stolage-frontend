@@ -18,7 +18,7 @@ export const changeCurrentId = (id) => (
     }
 );
 
-
+// -1은 Group SearchBar, 0부터는 Tag SearchBar
 const initialState = {
     searchBarID: {
         current: 0,
@@ -27,7 +27,7 @@ const initialState = {
     }
 };
 
-export default function setSearchBarID(state=initialState, action) {
+export default function searchBarIDReducer(state=initialState, action) {
     switch(action.type){
 
         case('addNewId'):
