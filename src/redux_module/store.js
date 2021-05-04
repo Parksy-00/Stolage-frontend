@@ -7,13 +7,13 @@ import selectedReducer from './selected/selected';
 import allTagsReducer from './allTags/allTags';
 
 const store = configureStore({
-    reducer: {
-        searchBarId: searchBarIDReducer,
-        selected: selectedReducer,
-        allTags: allTagsReducer,
-    },
-    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),
-    devTools: process.env.NODE_ENV !== 'production',
-})
+  reducer: {
+    searchBarId: searchBarIDReducer,
+    selected: selectedReducer,
+    allTags: allTagsReducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  devTools: process.env.NODE_ENV !== 'production',
+});
 
 export default store;
