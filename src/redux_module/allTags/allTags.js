@@ -21,7 +21,9 @@ const allTagsSlice = createSlice({
   },
 });
 
-export const fetchAllTags = () => async (dispatch) => {
+const { fetchAllTagsSuccess, fetchAllTagsFail } = allTagsSlice.actions;
+
+const fetchAllTags = () => async (dispatch) => {
   try {
     const res = Axios.get('/tags');
     dispatch(fetchAllTagsSuccess(res.data.tags));
@@ -30,6 +32,5 @@ export const fetchAllTags = () => async (dispatch) => {
   }
 };
 
-export const { fetchAllTagsSuccess, fetchAllTagsFail } = allTagsSlice.actions;
-
+export { fetchAllTags, fetchAllTagsSuccess, fetchAllTagsFail };
 export default allTagsSlice.reducer;
