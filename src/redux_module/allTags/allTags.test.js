@@ -1,9 +1,9 @@
 import Axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import allTagsReducer, { fetchAllTags, fetchAllTagsSuccess, fetchAllTagsFail } from './allTags';
-import store from '../store';
 
-const mock = new MockAdapter(Axios);
+jest.mock('axios');
 
 describe('Test allTagsReducer', () => {
   const err = new Error('fail to fetch tags');
@@ -27,55 +27,99 @@ describe('Test allTagsReducer', () => {
     });
   });
 
-  it('Test reducer', () => {
-    const initialState = [];
-
-    const tags = [
-      '2016년',
-      '2018년',
-      '6월',
-      '11월',
-    ];
-
-    let state = allTagsReducer(initialState, fetchAllTagsSuccess(tags));
-    expect(state.error).toBeNull();
-    expect(state.tags).toEqual(tags);
-
-    state = allTagsReducer(initialState, fetchAllTagsFail(err.message));
-    expect(state.error).toBe('fail to fetch tags');
-    expect(state.tags).toHaveLength(0);
-  });
-
   describe('Test fetch function', () => {
-    const tags = [
-      '2016년',
-      '2018년',
-      '6월',
-      '11월',
-    ];
+    const mockStore = configureStore([thunk]);
+    const store = mockStore({});
+    const data = [1, 2];
 
     it('Success', () => {
-      mock.onGet('/tags').reply(200, {
-        tags,
-      });
+      Axios.get.mockImplementationOnce(() => Promise.resolve({
+        data: {
+          tags: data,
+        },
+      }));
 
-      store.dispatch(fetchAllTags())
-        .then(() => {
-          expect(state.tags).toEqual(tags);
-          expect(state.err).toBeNull();
-        })
-        .catch(() => {});
+      return (
+        store.dispatch(fetchAllTags())
+          .then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toEqual(
+              {
+                type: 'allTags/fetchAllTagsSuccess',
+                payload: data,
+              },
+            );
+          })
+      );
     });
 
     it('Fail', () => {
-      mock.onGet('/tags').reply(404, {});
+      Axios.get.mockImplementationOnce(() => Promise.reject(err));
 
-      store.dispatch(fetchAllTags())
-        .then(() => {
-          expect(state.tags).toHaveLength(0);
-          expect(state.err).not.toBeNull();
-        })
-        .catch(() => {});
+      return (
+        store.dispatch(fetchAllTags())
+          .then(() => {
+            const actions = store.getActions();
+            expect(actions[1]).toEqual(
+              {
+                type: 'allTags/fetchAllTagsFail',
+                payload: err.message,
+              },
+            );
+          })
+      );
     });
   });
+
+  // it('Test reducer', () => {
+  //   const initialState = [];
+
+  //   const tags = [
+  //     '2016년',
+  //     '2018년',
+  //     '6월',
+  //     '11월',
+  //   ];
+
+  //   let state = allTagsReducer(initialState, fetchAllTagsSuccess(tags));
+  //   expect(state.error).toBeNull();
+  //   expect(state.tags).toEqual(tags);
+
+  //   state = allTagsReducer(initialState, fetchAllTagsFail(err.message));
+  //   expect(state.error).toBe('fail to fetch tags');
+  //   expect(state.tags).toHaveLength(0);
+  // });
+
+  // describe('Test fetch function', () => {
+  //   const tags = [
+  //     '2016년',
+  //     '2018년',
+  //     '6월',
+  //     '11월',
+  //   ];
+
+  //   it('Success', () => {
+  //     mock.onGet('/tags').reply(200, {
+  //       tags,
+  //     });
+
+  //     store.dispatch(fetchAllTags())
+  //       .then(() => {
+  //         expect(state.tags).toEqual(tags);
+  //         expect(state.err).toBeNull();
+  //       })
+  //       .catch(() => {});
+  //   });
+
+  //   it('Fail', () => {
+  //     mock.onGet('/tags').reply(404, {});
+
+  //     store.dispatch(fetchAllTags())
+  //       .then(() => {
+  //         expect(state.tags).toHaveLength(0);
+  //         expect(state.err).not.toBeNull();
+  //       })
+  //       .catch(() => {});
+  //   });
+  // });
 });
