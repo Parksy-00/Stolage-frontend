@@ -1,12 +1,5 @@
-export const updateSelected = (id, newSelected) => (
-  {
-    type: 'updateSelected',
-    payload: {
-      id,
-      newSelected,
-    },
-  }
-);
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   selected: {
@@ -15,16 +8,16 @@ const initialState = {
   },
 };
 
-export default function selectedReducer(state = initialState, action) {
-  switch (action.type) {
-  case ('updateSelected'):
-    return {
-      selected: {
-        ...state.selected,
-        [action.payload.id]: action.payload.newSelected,
-      },
-    };
-  default:
-    return {};
-  }
-}
+const selectedSlice = createSlice({
+  name: 'selected',
+  initialState,
+  reducers: {
+    updateSelected: (state, action) => {
+      const ID = action.payload.id;
+      state[ID] = action.payload.newSelected;
+    },
+  },
+});
+
+export const { updateSelected } = selectedSlice.actions;
+export default selectedSlice.reducer;
