@@ -30,13 +30,16 @@ describe('Test allTagsReducer', () => {
   describe('Test fetch function', () => {
     const mockStore = configureStore([thunk]);
     const store = mockStore({});
-    const data = [1, 2];
+    const tags = [
+      '2016년',
+      '2018년',
+      '6월',
+      '11월',
+    ];
 
     it('Success', () => {
       Axios.get.mockImplementationOnce(() => Promise.resolve({
-        data: {
-          tags: data,
-        },
+        data: { tags },
       }));
 
       return (
@@ -46,7 +49,7 @@ describe('Test allTagsReducer', () => {
             expect(actions[0]).toEqual(
               {
                 type: 'allTags/fetchAllTagsSuccess',
-                payload: data,
+                payload: tags,
               },
             );
           })
@@ -74,12 +77,12 @@ describe('Test allTagsReducer', () => {
   // it('Test reducer', () => {
   //   const initialState = [];
 
-  //   const tags = [
-  //     '2016년',
-  //     '2018년',
-  //     '6월',
-  //     '11월',
-  //   ];
+  // const tags = [
+  //   '2016년',
+  //   '2018년',
+  //   '6월',
+  //   '11월',
+  // ];
 
   //   let state = allTagsReducer(initialState, fetchAllTagsSuccess(tags));
   //   expect(state.error).toBeNull();
