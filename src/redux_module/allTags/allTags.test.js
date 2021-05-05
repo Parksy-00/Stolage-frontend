@@ -30,7 +30,7 @@ describe('Test allTagsReducer', () => {
 
   describe('Test fetch function', () => {
     const mockStore = configureStore([thunk]);
-    const store = mockStore({});
+
     const tags = [
       '2016년',
       '2018년',
@@ -39,6 +39,7 @@ describe('Test allTagsReducer', () => {
     ];
 
     it('Success', () => {
+      const store = mockStore({});
       Axios.get.mockImplementationOnce(() => Promise.resolve({
         data: { tags },
       }));
@@ -58,13 +59,14 @@ describe('Test allTagsReducer', () => {
     });
 
     it('Fail', () => {
+      const store = mockStore({});
       Axios.get.mockImplementationOnce(() => Promise.reject(err));
 
       return (
         store.dispatch(fetchAllTags())
           .then(() => {
             const actions = store.getActions();
-            expect(actions[1]).toEqual(
+            expect(actions[0]).toEqual(
               {
                 type: 'allTags/fetchAllTagsFail',
                 payload: err.message,
