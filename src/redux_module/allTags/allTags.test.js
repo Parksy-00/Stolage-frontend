@@ -87,12 +87,12 @@ describe('Test allTagsReducer', () => {
       '11월',
     ];
 
-    const funcs = [
+    const actionCreators = [
       fetchAllTagsSuccess,
       fetchAllTagsFail,
     ];
 
-    const outputs = [
+    const exps = [
       {
         error: null,
         tags,
@@ -104,11 +104,11 @@ describe('Test allTagsReducer', () => {
       },
     ];
 
-    const params = [tags, err.message];
+    const args = [tags, err.message];
 
-    _.forEach(_.zip(funcs, outputs, params), _.spread((func, output, param) => {
-      const state = allTagsReducer(initialState, func(param));
-      expect(state).toEqual(output);
+    _.forEach(_.zip(actionCreators, exps, args), _.spread((actionCreator, exp, arg) => {
+      const state = allTagsReducer(initialState, actionCreator(arg));
+      expect(state).toEqual(exp);
     }));
   });
 });
