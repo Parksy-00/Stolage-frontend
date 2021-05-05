@@ -38,7 +38,7 @@ describe('Test allTagsReducer', () => {
       '11월',
     ];
 
-    it('Success', () => {
+    it('when success', () => {
       const store = mockStore({});
       Axios.get.mockImplementationOnce(() => Promise.resolve({
         data: { tags },
@@ -58,7 +58,7 @@ describe('Test allTagsReducer', () => {
       );
     });
 
-    it('Fail', () => {
+    it('when fails', () => {
       const store = mockStore({});
       Axios.get.mockImplementationOnce(() => Promise.reject(err));
 
