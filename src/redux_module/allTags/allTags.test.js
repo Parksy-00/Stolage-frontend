@@ -6,25 +6,62 @@ import allTagsReducer, { fetchAllTags, fetchAllTagsSuccess, fetchAllTagsFail } f
 
 jest.mock('axios');
 
-describe('Test allTagsReducer', () => {
+describe('Test allTags', () => {
   const err = new Error('fail to fetch tags');
 
-  it('Test actionCreator', () => {
-    const data = [
-      { id: 1, name: 'file1', tags: ['tag1'] },
-      { id: 2, name: 'file2', tags: ['tag2'] },
-    ];
-    const onSuccess = fetchAllTagsSuccess(data);
-    const onFail = fetchAllTagsFail(err.message);
+  describe('Test allTagsSlice', () => {
+    it('Test actionCreator', () => {
+      const data = [
+        { id: 1, name: 'file1', tags: ['tag1'] },
+        { id: 2, name: 'file2', tags: ['tag2'] },
+      ];
+      const onSuccess = fetchAllTagsSuccess(data);
+      const onFail = fetchAllTagsFail(err.message);
 
-    expect(onSuccess).toEqual({
-      type: 'allTags/fetchAllTagsSuccess',
-      payload: data,
+      expect(onSuccess).toEqual({
+        type: 'allTags/fetchAllTagsSuccess',
+        payload: data,
+      });
+
+      expect(onFail).toEqual({
+        type: 'allTags/fetchAllTagsFail',
+        payload: err.message,
+      });
     });
 
-    expect(onFail).toEqual({
-      type: 'allTags/fetchAllTagsFail',
-      payload: err.message,
+    it('Test reducer', () => {
+      const initialState = [];
+
+      const tags = [
+        '2016년',
+        '2018년',
+        '6월',
+        '11월',
+      ];
+
+      const actionCreators = [
+        fetchAllTagsSuccess,
+        fetchAllTagsFail,
+      ];
+
+      const exps = [
+        {
+          error: null,
+          tags,
+        },
+
+        {
+          error: err.message,
+          tags: [],
+        },
+      ];
+
+      const args = [tags, err.message];
+
+      _.forEach(_.zip(actionCreators, exps, args), _.spread((actionCreator, exp, arg) => {
+        const state = allTagsReducer(initialState, actionCreator(arg));
+        expect(state).toEqual(exp);
+      }));
     });
   });
 
@@ -75,40 +112,5 @@ describe('Test allTagsReducer', () => {
           })
       );
     });
-  });
-
-  it('Test reducer', () => {
-    const initialState = [];
-
-    const tags = [
-      '2016년',
-      '2018년',
-      '6월',
-      '11월',
-    ];
-
-    const actionCreators = [
-      fetchAllTagsSuccess,
-      fetchAllTagsFail,
-    ];
-
-    const exps = [
-      {
-        error: null,
-        tags,
-      },
-
-      {
-        error: err.message,
-        tags: [],
-      },
-    ];
-
-    const args = [tags, err.message];
-
-    _.forEach(_.zip(actionCreators, exps, args), _.spread((actionCreator, exp, arg) => {
-      const state = allTagsReducer(initialState, actionCreator(arg));
-      expect(state).toEqual(exp);
-    }));
   });
 });
