@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import _ from 'lodash';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import allTagsReducer, { fetchAllTags, fetchAllTagsSuccess, fetchAllTagsFail } from './allTags';
@@ -74,55 +75,38 @@ describe('Test allTagsReducer', () => {
     });
   });
 
-  // it('Test reducer', () => {
-  //   const initialState = [];
+  it('Test reducer', () => {
+    const initialState = [];
 
-  // const tags = [
-  //   '2016년',
-  //   '2018년',
-  //   '6월',
-  //   '11월',
-  // ];
+    const tags = [
+      '2016년',
+      '2018년',
+      '6월',
+      '11월',
+    ];
 
-  //   let state = allTagsReducer(initialState, fetchAllTagsSuccess(tags));
-  //   expect(state.error).toBeNull();
-  //   expect(state.tags).toEqual(tags);
+    const funcs = [
+      fetchAllTagsSuccess,
+      fetchAllTagsFail,
+    ];
 
-  //   state = allTagsReducer(initialState, fetchAllTagsFail(err.message));
-  //   expect(state.error).toBe('fail to fetch tags');
-  //   expect(state.tags).toHaveLength(0);
-  // });
+    const outputs = [
+      {
+        error: null,
+        tags,
+      },
 
-  // describe('Test fetch function', () => {
-  //   const tags = [
-  //     '2016년',
-  //     '2018년',
-  //     '6월',
-  //     '11월',
-  //   ];
+      {
+        error: err.message,
+        tags: [],
+      },
+    ];
 
-  //   it('Success', () => {
-  //     mock.onGet('/tags').reply(200, {
-  //       tags,
-  //     });
+    const params = [tags, err.message];
 
-  //     store.dispatch(fetchAllTags())
-  //       .then(() => {
-  //         expect(state.tags).toEqual(tags);
-  //         expect(state.err).toBeNull();
-  //       })
-  //       .catch(() => {});
-  //   });
-
-  //   it('Fail', () => {
-  //     mock.onGet('/tags').reply(404, {});
-
-  //     store.dispatch(fetchAllTags())
-  //       .then(() => {
-  //         expect(state.tags).toHaveLength(0);
-  //         expect(state.err).not.toBeNull();
-  //       })
-  //       .catch(() => {});
-  //   });
-  // });
+    _.forEach(_.zip(funcs, outputs, params), _.spread((func, output, param) => {
+      const state = allTagsReducer(initialState, func(param));
+      expect(state).toEqual(output);
+    }));
+  });
 });
