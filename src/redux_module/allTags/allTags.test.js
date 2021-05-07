@@ -6,21 +6,22 @@ import allTagsReducer, { fetchAllTags, fetchAllTagsSuccess, fetchAllTagsFail } f
 
 jest.mock('axios');
 
-describe('Test allTags', () => {
-  const err = new Error('fail to fetch tags');
-
+describe('module: allTags', () => {
   describe('Test allTagsSlice', () => {
     it('Test actionCreator', () => {
-      const data = [
-        { id: 1, name: 'file1', tags: ['tag1'] },
-        { id: 2, name: 'file2', tags: ['tag2'] },
+      const err = new Error('fail to fetch tags');
+      const tags = [
+        '2016년',
+        '2018년',
+        '6월',
+        '11월',
       ];
-      const onSuccess = fetchAllTagsSuccess(data);
+      const onSuccess = fetchAllTagsSuccess(tags);
       const onFail = fetchAllTagsFail(err.message);
 
       expect(onSuccess).toEqual({
         type: 'allTags/fetchAllTagsSuccess',
-        payload: data,
+        payload: tags,
       });
 
       expect(onFail).toEqual({
@@ -31,6 +32,7 @@ describe('Test allTags', () => {
 
     it('Test reducer', () => {
       const initialState = [];
+      const err = new Error('fail to fetch tags');
 
       const tags = [
         '2016년',
@@ -67,7 +69,7 @@ describe('Test allTags', () => {
 
   describe('Test fetch function', () => {
     const mockStore = configureStore([thunk]);
-
+    const err = new Error('fail to fetch tags');
     const tags = [
       '2016년',
       '2018년',

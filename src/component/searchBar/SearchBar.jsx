@@ -13,18 +13,18 @@ function handleChange(value) {
   console.log(`selected ${value}`);
 }
 
-const SearchBar = () => {
-    return (
-        <div>
-            <Select mode="multiple" 
-                    style={{ width: '100%' }} 
-                    placeholder="multiple Mode" 
-                    onChange={handleChange}
-                    value={['a1', 'a2']}>
-                {children}
-            </Select>
-        </div>
-    )
-}
+const SearchBar = () => (
+  <div>
+    <Select
+      mode="multiple"
+      style={{ width: '100%' }}
+      placeholder="multiple Mode"
+      onChange={handleChange}
+      value={['a1', 'a2']}
+    >
+      {children}
+    </Select>
+  </div>
+);
 
-export default SearchBar
+export default SearchBar;
