@@ -5,6 +5,6 @@ const getFileList = (state) => {
   return _.assign({}, ..._.values(fileItems));
 };
 
-const getTagList = () => {};
+const getTagList = (state) => state.matchedItems.tags.items;
 
 export { getFileList, getTagList };
