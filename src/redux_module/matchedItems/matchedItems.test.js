@@ -19,9 +19,11 @@ describe('module: matchedItems', () => {
     describe('Test actionCreator', () => {
       it('fetchFilesAction', () => {
         const files = {
-          0: { id: 1, name: '20180620', tags: ['2018년', '6월', '20번'] },
-          1: { id: 2, name: '20200321', tags: ['2020년', '3월', '21번', '킬러'] },
-          2: { id: 3, name: '20161130', tags: ['2016년', '11월', '30번', '킬러'] },
+          0: {
+            1: { id: 1, name: '20180620', tags: ['2018년', '6월', '20번'] },
+            2: { id: 2, name: '20200321', tags: ['2020년', '3월', '21번', '킬러'] },
+            3: { id: 3, name: '20161130', tags: ['2016년', '11월', '30번', '킬러'] },
+          },
         };
         const error = new Error('Fail to fetch files');
 
@@ -74,9 +76,11 @@ describe('module: matchedItems', () => {
         };
 
         const files = {
-          0: { id: 1, name: '20180620', tags: ['2018년', '6월', '20번'] },
-          1: { id: 2, name: '20200321', tags: ['2020년', '3월', '21번', '킬러'] },
-          2: { id: 3, name: '20161130', tags: ['2016년', '11월', '30번', '킬러'] },
+          0: {
+            1: { id: 1, name: '20180620', tags: ['2018년', '6월', '20번'] },
+            2: { id: 2, name: '20200321', tags: ['2020년', '3월', '21번', '킬러'] },
+            3: { id: 3, name: '20161130', tags: ['2016년', '11월', '30번', '킬러'] },
+          },
         };
         const error = new Error('Fail to fetch tags');
 
@@ -195,9 +199,11 @@ describe('module: matchedItems', () => {
 
     describe('fetchMatchedFiles', () => {
       const files = {
-        0: { id: 1, name: '20180620', tags: ['2018년', '6월', '20번'] },
-        1: { id: 2, name: '20180321', tags: ['2018년', '3월', '21번', '킬러'] },
-        2: { id: 3, name: '20181130', tags: ['2018년', '11월', '30번', '킬러'] },
+        0: {
+          1: { id: 1, name: '20180620', tags: ['2018년', '6월', '20번'] },
+          2: { id: 2, name: '20180321', tags: ['2018년', '3월', '21번', '킬러'] },
+          3: { id: 3, name: '20181130', tags: ['2018년', '11월', '30번', '킬러'] },
+        },
       };
       const fetchFilesError = new Error('Fail to fetch files');
 
