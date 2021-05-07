@@ -1,10 +1,11 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import Axios from 'axios';
 
 const initialState = {
   tags: {
     error: null,
-    items: [],
+    items: {},
   },
   files: {
     error: null,
@@ -16,34 +17,30 @@ const matchedItemsSlice = createSlice({
   name: 'matchedItems',
   initialState,
   reducers: {
-    fetchFilesSuccess: (state, action) => ({
-      tags: { ...state.tags },
-      files: {
+    fetchFilesSuccess: (state, action) => {
+      state.files = {
         error: null,
         items: action.payload,
-      },
-    }),
-    fetchFilesFail: (state, action) => ({
-      tags: { ...state.tags },
-      files: {
+      };
+    },
+    fetchFilesFail: (state, action) => {
+      state.files = {
         error: action.payload,
-        items: [],
-      },
-    }),
-    fetchTagsSuccess: (state, action) => ({
-      tags: {
+        items: {},
+      };
+    },
+    fetchTagsSuccess: (state, action) => {
+      state.tags = {
         error: null,
         items: action.payload,
-      },
-      files: { ...state.files },
-    }),
-    fetchTagsFail: (state, action) => ({
-      tags: {
+      };
+    },
+    fetchTagsFail: (state, action) => {
+      state.tags = {
         error: action.payload,
-        items: [],
-      },
-      files: { ...state.files },
-    }),
+        items: {},
+      };
+    },
   },
 });
 

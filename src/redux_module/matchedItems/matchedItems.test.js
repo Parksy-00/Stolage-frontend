@@ -41,11 +41,11 @@ describe('module: matchedItems', () => {
       });
 
       it('fetchTagsAction', () => {
-        const tags = [
-          { id: 1, name: '6월', tags: ['짝수', '평가원', '달'] },
-          { id: 2, name: '2016년', tags: ['년', '짝수'] },
-          { id: 3, name: '21번', tags: ['번호', '홀수'] },
-        ];
+        const tags = {
+          1: { id: 1, name: '6월', tags: ['짝수', '평가원', '달'] },
+          2: { id: 2, name: '2016년', tags: ['년', '짝수'] },
+          3: { id: 3, name: '21번', tags: ['번호', '홀수'] },
+        };
         const error = new Error('Fail to fetch tags');
 
         const onSuccess = fetchTagsSuccess(tags);
@@ -67,11 +67,11 @@ describe('module: matchedItems', () => {
         const initialState = {
           tags: {
             error: null,
-            items: [],
+            items: {},
           },
           files: {
             error: null,
-            items: [],
+            items: {},
           },
         };
 
@@ -93,7 +93,7 @@ describe('module: matchedItems', () => {
           {
             tags: {
               error: null,
-              items: [],
+              items: {},
             },
             files: {
               error: null,
@@ -103,11 +103,11 @@ describe('module: matchedItems', () => {
           {
             tags: {
               error: null,
-              items: [],
+              items: {},
             },
             files: {
               error: error.message,
-              items: [],
+              items: {},
             },
           },
         ];
@@ -127,11 +127,11 @@ describe('module: matchedItems', () => {
         const initialState = {
           tags: {
             error: null,
-            items: [],
+            items: {},
           },
           files: {
             error: null,
-            items: [],
+            items: {},
           },
         };
 
@@ -155,17 +155,17 @@ describe('module: matchedItems', () => {
             },
             files: {
               error: null,
-              items: [],
+              items: {},
             },
           },
           {
             tags: {
               error: error.message,
-              items: [],
+              items: {},
             },
             files: {
               error: null,
-              items: [],
+              items: {},
             },
           },
         ];
