@@ -1,17 +1,8 @@
 import _ from 'lodash';
 
 const getFileList = (state) => {
-  const ret = {};
-  const files = state.matchedItems.files.items;
-  const searchBarIds = _.keys(files);
-  _.forEach(searchBarIds, (id) => {
-    _.forIn(files[id], (file) => {
-      if (!_.has(ret, file.id)) {
-        ret[file.id] = file;
-      }
-    });
-  });
-  return ret;
+  const fileItems = state.matchedItems.files.items;
+  return _.assign({}, ..._.values(fileItems));
 };
 
 const getTagList = () => {};
