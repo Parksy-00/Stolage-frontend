@@ -11,6 +11,7 @@ import matchedItemsReducer, {
   fetchMatchedFiles,
   fetchMatchedTags,
 } from './matchedItems';
+import { files, tags } from './matchedItems.fixture';
 
 jest.mock('axios');
 
@@ -18,13 +19,6 @@ describe('module: matchedItems', () => {
   describe('Test matchedItemsSlice', () => {
     describe('Test actionCreator', () => {
       it('fetchFilesAction', () => {
-        const files = {
-          0: {
-            1: { id: 1, name: '20180620', tags: ['2018년', '6월', '20번'] },
-            2: { id: 2, name: '20200321', tags: ['2020년', '3월', '21번', '킬러'] },
-            3: { id: 3, name: '20161130', tags: ['2016년', '11월', '30번', '킬러'] },
-          },
-        };
         const error = new Error('Fail to fetch files');
 
         const onSuccess = fetchFilesSuccess(files);
@@ -41,11 +35,6 @@ describe('module: matchedItems', () => {
       });
 
       it('fetchTagsAction', () => {
-        const tags = {
-          1: { id: 1, name: '6월', tags: ['짝수', '평가원', '달'] },
-          2: { id: 2, name: '2016년', tags: ['년', '짝수'] },
-          3: { id: 3, name: '21번', tags: ['번호', '홀수'] },
-        };
         const error = new Error('Fail to fetch tags');
 
         const onSuccess = fetchTagsSuccess(tags);
@@ -75,13 +64,6 @@ describe('module: matchedItems', () => {
           },
         };
 
-        const files = {
-          0: {
-            1: { id: 1, name: '20180620', tags: ['2018년', '6월', '20번'] },
-            2: { id: 2, name: '20200321', tags: ['2020년', '3월', '21번', '킬러'] },
-            3: { id: 3, name: '20161130', tags: ['2016년', '11월', '30번', '킬러'] },
-          },
-        };
         const error = new Error('Fail to fetch tags');
 
         const actionCreators = [
@@ -135,11 +117,6 @@ describe('module: matchedItems', () => {
           },
         };
 
-        const tags = [
-          { id: 1, name: '6월', tags: ['짝수', '평가원', '달'] },
-          { id: 2, name: '2016년', tags: ['년', '짝수'] },
-          { id: 3, name: '21번', tags: ['번호', '홀수'] },
-        ];
         const error = new Error('Fail to fetch tags');
 
         const actionCreators = [
@@ -198,13 +175,6 @@ describe('module: matchedItems', () => {
     };
 
     describe('fetchMatchedFiles', () => {
-      const files = {
-        0: {
-          1: { id: 1, name: '20180620', tags: ['2018년', '6월', '20번'] },
-          2: { id: 2, name: '20180321', tags: ['2018년', '3월', '21번', '킬러'] },
-          3: { id: 3, name: '20181130', tags: ['2018년', '11월', '30번', '킬러'] },
-        },
-      };
       const fetchFilesError = new Error('Fail to fetch files');
 
       it('when success', () => {
@@ -239,11 +209,6 @@ describe('module: matchedItems', () => {
     });
 
     describe('fetchMatchedTags', () => {
-      const tags = [
-        { id: 1, name: '6월', tags: ['짝수', '평가원', '달'] },
-        { id: 2, name: '2016년', tags: ['년', '짝수'] },
-        { id: 3, name: '20번', tags: ['번호', '짝수'] },
-      ];
       const fetchTagsError = new Error('Fail to fetch tags');
 
       it('when success', () => {
