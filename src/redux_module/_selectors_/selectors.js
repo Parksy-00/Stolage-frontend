@@ -7,4 +7,9 @@ const getFileList = (state) => {
 
 const getTagList = (state) => state.matchedItems.tags.items;
 
-export { getFileList, getTagList };
+const getRelatedTags = (state) => {
+  const fileList = getFileList(state);
+  return _.assign({}, ..._.map(fileList, (file) => (file.tags)));
+};
+
+export { getFileList, getTagList, getRelatedTags };
