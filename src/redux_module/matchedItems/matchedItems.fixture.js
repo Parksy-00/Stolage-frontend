@@ -1,4 +1,4 @@
-const fileitems = {
+const fileItems = {
   0: {
     1: {
       id: 1,
@@ -32,7 +32,7 @@ const fileitems = {
   },
 };
 
-const tagitems = {
+const tagItems = {
   1: { id: 1, name: '6월', group: ['짝수', '평가원', '달'] },
   2: { id: 2, name: '2016년', group: ['년', '짝수'] },
   3: { id: 3, name: '20번', group: ['번호', '짝수'] },
@@ -41,13 +41,13 @@ const tagitems = {
 const matchedItems = {
   files: {
     error: null,
-    items: fileitems,
+    items: fileItems,
   },
   tags: {
     error: null,
-    items: tagitems,
+    items: tagItems,
   },
 };
 
-export { fileitems, tagitems };
-export default matchedItems;
+export { fileItems, tagItems, matchedItems };
+export default {};

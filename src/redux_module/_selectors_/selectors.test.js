@@ -1,5 +1,5 @@
 import { getFileList, getTagList, getRelatedTags } from './selectors';
-import matchedItems from '../matchedItems/matchedItems.fixture';
+import { matchedItems } from '../matchedItems/matchedItems.fixture';
 
 describe('Test Selector', () => {
   it('getFileList', () => {
