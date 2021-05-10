@@ -1,5 +1,6 @@
 import { getFileList, getTagList, getRelatedTags } from './selectors';
 import { matchedItems } from '../matchedItems/matchedItems.fixture';
+import { tags } from '../allTags/allTags.fixture';
 
 describe('Test Selector', () => {
   it('getFileList', () => {
@@ -46,6 +47,63 @@ describe('Test Selector', () => {
       1: { id: 1, name: '6월', group: ['짝수', '평가원', '달'] },
       2: { id: 2, name: '2016년', group: ['년', '짝수'] },
       3: { id: 3, name: '20번', group: ['번호', '짝수'] },
+    });
+  });
+
+  describe('Selector: getdReleatedTags', () => {
+    it('when files exist', () => {
+      const state = {
+        allTags: {
+          tags,
+        },
+        matchedItems,
+        searchBarID: {
+          current: 0,
+        },
+      };
+
+      const relatedTags = getRelatedTags(state);
+
+      expect(relatedTags).toEqual({
+        1: { id: 1, name: '2018년', group: ['짝수', '년'] },
+        2: { id: 2, name: '6월', group: ['짝수', '월', '평가원'] },
+        3: { id: 3, name: '20번', group: ['짝수', '번호'] },
+        4: { id: 4, name: '2020년', group: ['짝수', '년'] },
+        5: { id: 5, name: '3월', group: ['홀수', '월', '교육청'] },
+        6: { id: 6, name: '21번', group: ['홀수', '번호'] },
+      });
+    });
+
+    it('when files is empty', () => {
+      const state = {
+        allTags: {
+          tags,
+        },
+        matchedItems: {
+          files: {
+            error: null,
+            items: {
+              0: {},
+            },
+          },
+        },
+        searchBarID: {
+          current: 0,
+        },
+      };
+
+      const relatedTags = getRelatedTags(state);
+
+      expect(relatedTags).toEqual({
+        1: { id: 1, name: '2018년', group: ['짝수', '년'] },
+        2: { id: 2, name: '6월', group: ['짝수', '월', '평가원'] },
+        3: { id: 3, name: '20번', group: ['짝수', '번호'] },
+        4: { id: 4, name: '2020년', group: ['짝수', '년'] },
+        5: { id: 5, name: '3월', group: ['홀수', '월', '교육청'] },
+        6: { id: 6, name: '21번', group: ['홀수', '번호'] },
+        7: { id: 7, name: '11월', group: ['홀수', '월', '평가원', '수능'] },
+        8: { id: 8, name: '30번', group: ['짝수', '번호'] },
+      });
     });
   });
 });

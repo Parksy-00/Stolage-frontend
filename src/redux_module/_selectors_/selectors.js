@@ -7,4 +7,12 @@ const getFileList = (state) => {
 
 const getTagList = (state) => state.matchedItems.tags.items;
 
-export { getFileList, getTagList };
+const getRelatedTags = (state) => {
+  const ID = state.searchBarID.current;
+  const files = state.matchedItems.files.items[ID];
+  return _.isEmpty(files)
+    ? _.keyBy(state.allTags.tags, 'id')
+    : _.assign({}, ..._.map(files, (file) => (file.tags)));
+};
+
+export { getFileList, getTagList, getRelatedTags };
